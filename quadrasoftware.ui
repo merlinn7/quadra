@@ -114,12 +114,15 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>80</width>
              <height>80</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 1px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};</string>
+           </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -149,12 +152,15 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>80</width>
              <height>80</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 0px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};</string>
+           </property>
            <property name="text">
-            <string>PushButton</string>
+            <string/>
            </property>
           </widget>
          </item>
@@ -207,6 +213,12 @@
          <number>0</number>
         </property>
         <widget class="QWidget" name="page">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
            <widget class="QFrame" name="frame_2">
@@ -254,6 +266,12 @@
          </layout>
         </widget>
         <widget class="QWidget" name="page_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QFrame" name="frame_4">

@@ -34,18 +34,46 @@ quadrasoftware::quadrasoftware(QWidget *parent)
     sizePolicy.setHeightForWidth(m_mapView->sizePolicy().hasHeightForWidth());
     m_mapView->setSizePolicy(sizePolicy);
     ui.gridLayout_3->addWidget(m_mapView);
+
+    ui.tabButton1->setIcon(QIcon("images/map_icon.png"));
+    ui.tabButton1->setIconSize(QSize(64,64));
+
+    ui.tabButton2->setIcon(QIcon("images/plane_icon.png"));
+    ui.tabButton2->setIconSize(QSize(75, 75));
 }
 
 quadrasoftware::~quadrasoftware()
 {}
 
+void HandleTabButtons(Ui::quadrasoftwareClass ui)
+{
+    QString activeStyleSheet = "QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 1px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
+    QString deactiveStyleSheet = "QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 0px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
+
+    switch (ui.stackedWidget->currentIndex())
+    {
+    case 0:
+        ui.tabButton1->setStyleSheet(activeStyleSheet);
+        ui.tabButton2->setStyleSheet(deactiveStyleSheet);
+        break;
+    case 1:
+        ui.tabButton1->setStyleSheet(deactiveStyleSheet);
+        ui.tabButton2->setStyleSheet(activeStyleSheet);
+        break;
+    default:
+        break;
+    }
+}
+
 void quadrasoftware::on_tabButton1_clicked()
 {
     ui.stackedWidget->setCurrentIndex(0);
+    HandleTabButtons(ui);
 }
 
 
 void quadrasoftware::on_tabButton2_clicked()
 {
     ui.stackedWidget->setCurrentIndex(1);
+    HandleTabButtons(ui);
 }
