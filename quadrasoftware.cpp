@@ -47,8 +47,8 @@ quadrasoftware::~quadrasoftware()
 
 void HandleTabButtons(Ui::quadrasoftwareClass ui)
 {
-    QString activeStyleSheet = "QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 1px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
-    QString deactiveStyleSheet = "QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;border: 0px solid white;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
+    QString activeStyleSheet = "QPushButton{background-color: rgb(97, 97, 97);border-radius: 5px;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
+    QString deactiveStyleSheet = "QPushButton{background-color: rgb(66, 66, 66);border-radius: 5px;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
 
     switch (ui.stackedWidget->currentIndex())
     {
