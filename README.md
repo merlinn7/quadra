@@ -1,4 +1,7 @@
 ## To-do
 
 - MAVSDK'nın projeye dahil edilmesi
-- UI'ın baştan tasarlanması ve planlanması
+- Butonlara icon atanması ve renklerinin ayarlanması
+- MAVSDK temel connect ve disconnect sistemi
+- Config dosyalarının ayarlanması
+  
