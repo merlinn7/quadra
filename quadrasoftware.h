@@ -13,4 +13,8 @@ public:
 
 private:
     Ui::quadrasoftwareClass ui;
+
+private slots:
+    void on_tabButton1_clicked();
+    void on_tabButton2_clicked();
 };
