@@ -1,4 +1,4 @@
-#include "quadrasoftware.h"
+#include "quadra_ui.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])

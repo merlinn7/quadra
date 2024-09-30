@@ -62,12 +62,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Administrator\Documents\Projeler\quadra-software\include;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Administrator\Documents\Projeler\quadra-software\lib;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>EsriCommonQt.lib;EsriRuntimeQt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>EsriCommonQt.lib;EsriRuntimeQt.lib;mavsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
@@ -100,10 +101,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="quadrasoftware.qrc" />
+    <QtUic Include="connectDialog.ui" />
     <QtUic Include="quadrasoftware.ui" />
-    <QtMoc Include="quadrasoftware.h" />
-    <ClCompile Include="quadrasoftware.cpp" />
+    <QtMoc Include="quadra_ui.h" />
+    <ClCompile Include="connectDialog.cpp" />
+    <ClCompile Include="QuadraMavInterface.cpp" />
+    <ClCompile Include="quadra_ui.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="connectDialog.h" />
+    <ClInclude Include="QuadraMavInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
