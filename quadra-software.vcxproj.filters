@@ -23,42 +23,42 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="quadrasoftware.qrc">
+    <QtRcc Include="src\quadrasoftware.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtUic Include="quadrasoftware.ui">
+    <QtUic Include="src\quadrasoftware.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtMoc Include="quadra_ui.h">
+    <QtMoc Include="src\quadra_ui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="quadra_ui.cpp">
+    <ClCompile Include="src\quadra_ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QuadraMavInterface.cpp">
+    <ClCompile Include="src\QuadraMavInterface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="connectDialog.cpp">
+    <ClCompile Include="src\connectDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="QuadraMavInterface.h">
+    <ClInclude Include="src\QuadraMavInterface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="connectDialog.ui">
+    <QtUic Include="src\connectDialog.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="connectDialog.h">
+    <QtMoc Include="src\connectDialog.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
