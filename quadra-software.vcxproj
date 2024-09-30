@@ -44,6 +44,7 @@
     <QtInstall>6.6.2_msvc2019_64</QtInstall>
     <QtModules>core;gui;network;widgets;opengl;openglwidgets;</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
+    <QtDeploy>false</QtDeploy>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -62,8 +63,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>C:\Users\Administrator\Documents\Projeler\quadra-software\include;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Administrator\Documents\Projeler\quadra-software\lib;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\include;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\lib;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>

@@ -83,6 +83,24 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="currentText">
+    <string>UDP</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>UDP</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>TCP</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Serial</string>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

@@ -131,7 +131,8 @@ void quadrasoftware::closeEvent(QCloseEvent* event)
 {
 	// fixed: crash when window closed
 	QuadraInterface.Disconnect();
-	QApplication::quit();
+	exit(0);
+	//QApplication::quit();
 }
 
 void quadrasoftware::on_tabButton2_clicked()

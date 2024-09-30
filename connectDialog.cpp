@@ -10,14 +10,14 @@ connectDialog::connectDialog(QWidget* parent)
     QObject::connect(ui.cancelButton, &QPushButton::clicked, this, &QDialog::reject);
 }
 
-void connectDialog::on_buttonBox_accepted()
+void connectDialog::on_comboBox_currentTextChanged(QString text)
 {
-
-}
-
-void connectDialog::on_buttonBox_rejected()
-{
-
+    if (text == "UDP")
+        ui.lineEdit->setText("udp://:14550");
+    else if (text == "TCP")
+        ui.lineEdit->setText("tcp://:14550");
+    else if (text == "Serial")
+        ui.lineEdit->setText("serial://11:57600");
 }
 
 connectDialog::~connectDialog()
