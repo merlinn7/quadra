@@ -10,4 +10,5 @@
 - [ ] Bağlanırken loading ekranı
 - [ ] Bağlantıyı keserken "emin misin" yazılı kontrol ekranı
 - [ ] Haritanın daha rahat okunabilmesi için gereken veri yapısı
+- [ ] Arm butonu
   
