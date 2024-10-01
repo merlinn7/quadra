@@ -14,4 +14,5 @@
 - [ ] Bağlanırken loading ekranı
 - [ ] Bağlantıyı keserken "emin misin" yazılı kontrol ekranı
 - [ ] Haritanın daha rahat okunabilmesi için gereken veri yapısı
+- [ ] UI'a uçağın health durumunu gösteren gösterge eklenmesi
   
