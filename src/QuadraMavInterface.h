@@ -24,6 +24,7 @@ public:
 		userFunc = iUserFunc;
 	}
 
+private:
 	Mavsdk mavsdk{ Mavsdk::Configuration{Mavsdk::ComponentType::GroundStation} };
 	std::optional<std::shared_ptr<System>> system;
 	Mavsdk::ConnectionHandle handle;
@@ -37,6 +38,10 @@ public:
 	std::unique_ptr<mavsdk::Offboard> offboard;
 	std::unique_ptr<mavsdk::MavlinkPassthrough> mavlink_passthrough;
 
+public:
+	Telemetry::Position GetPosition();
+	Telemetry::EulerAngle GetAngles();
+
 	bool Connect(std::string url);
 	bool Disconnect();
 	bool IsConnected();
@@ -49,5 +54,6 @@ public:
 private:
 	bool armed = false;
 	Telemetry::LandedState landed_state;
-
+	Telemetry::Position position;
+	Telemetry::EulerAngle angles;
 };

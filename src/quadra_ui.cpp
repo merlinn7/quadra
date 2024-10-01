@@ -5,24 +5,6 @@
 #include "takeoffInputDialog.h"
 #include <qtimer.h>
 
-//
-#include "Viewpoint.h"
-#include "Graphic.h"
-#include "GraphicsOverlay.h"
-#include "GraphicsOverlayListModel.h"
-#include "GraphicListModel.h"
-#include <SimpleMarkerSymbol.h>
-#include "SymbolTypes.h"
-#include "SimpleMarkerSymbol.h"
-#include "Point.h"
-#include "SpatialReference.h"
-#include "PictureMarkerSymbol.h"
-#include <Polyline.h>
-#include <PolylineBuilder.h>
-#include "SimpleLineSymbol.h"
-#include <TaskWatcher.h>
-#include <qfuture.h>
-
 using namespace Esri::ArcGISRuntime;
 quadrasoftware::quadrasoftware(QWidget* parent)
 	: QMainWindow(parent)
@@ -46,51 +28,24 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	m_mapView = new MapGraphicsView(ui.frame_2);
 	m_mapView->setMap(m_map);
 
-	// map way point
+	// init arcgis map graphics overlay
+	map_graphicsOverlay = new GraphicsOverlay(m_mapView);
+	m_mapView->graphicsOverlays()->append(map_graphicsOverlay);
 
-	QString imagePath = "images/way-point.png";
-	QString imagePathplane = "images/plane_icon.png";
-
+	// create map way point
 	const Viewpoint viewpoint(37.78304072903069, 29.09632386893564, 50000);
 	m_mapView->setViewpointAsync(viewpoint);
 
-	static double latitude = 37.79262103901701;
-	static double longitude = 28.96567444077879;
+	Point goveclik = Point(28.96567444077879, 37.79262103901701, SpatialReference::wgs84());
+	Point cal = Point(29.39729159313304, 38.08300286281516, SpatialReference::wgs84());
 
-	auto graphicsOverlay = new GraphicsOverlay(m_mapView);
+	static Graphic* waypointGraphic = CreatePictureMarkerSymbolGraphic("images/way-point.png", 30, 30, 0, goveclik);
+	static Graphic* planeGraphic = CreatePictureMarkerSymbolGraphic("images/plane_icon.png", 60, 60, 0, Point());
+	static Graphic* lineGraphic = CreatePolylineSymbolGraphic(goveclik, cal, new SimpleLineSymbol(SimpleLineSymbolStyle::Solid, QColor(Qt::white), 3, this));
 
-	PictureMarkerSymbol* waypoint = new PictureMarkerSymbol(QUrl::fromLocalFile(imagePath), this);
-	waypoint->setWidth(30);
-	waypoint->setHeight(30);
-
-	Point point(longitude, latitude, SpatialReference::wgs84());
-	Graphic* waypointPng = new Graphic(point, waypoint);
-
-	static double latitude2 = 38.08300286281516;
-	static double longitude2 = 29.39729159313304;
-
-	PictureMarkerSymbol* plane = new PictureMarkerSymbol(QUrl::fromLocalFile(imagePathplane), this);
-	plane->setWidth(60);
-	plane->setHeight(60);
-	plane->setAngle(0);
-
-	Point point2(longitude2, latitude2, SpatialReference::wgs84());
-	Graphic* ucakpng = new Graphic(point2, plane);
-
-	Graphic* pointgraphic = new Graphic(new PictureMarkerSymbol(QUrl::fromLocalFile(""), this));
-	graphicsOverlay->graphics()->append(pointgraphic);
-	PolylineBuilder* polyline_builder = new PolylineBuilder(SpatialReference::wgs84(), this);
-
-	polyline_builder->addPoint(longitude, latitude);
-	polyline_builder->addPoint(longitude2, latitude2);
-	SimpleLineSymbol* line_symbol = new SimpleLineSymbol(SimpleLineSymbolStyle::Solid, QColor(Qt::yellow), 3, this);
-	Graphic* waypointLine = new Graphic(polyline_builder->toGeometry(), line_symbol, this);
-
-	graphicsOverlay->graphics()->append(ucakpng);
-	graphicsOverlay->graphics()->append(waypointPng);
-	graphicsOverlay->graphics()->append(waypointLine);
-	m_mapView->graphicsOverlays()->append(graphicsOverlay);
-
+	map_graphicsOverlay->graphics()->append(planeGraphic);
+	//map_graphicsOverlay->graphics()->append(waypointGraphic);
+	//map_graphicsOverlay->graphics()->append(lineGraphic);
 
 	// for making the map responsive
 	QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
@@ -109,7 +64,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	ui.tabButton3->setIconSize(QSize(75, 75));
 
 	ui.landingButton->setIcon(QIcon("images/landing.png"));
-	ui.landingButton->setIconSize(QSize(75, 75));
+	ui.landingButton->setIconSize(QSize(85, 85));
 
 	ui.takeoffButton->setIcon(QIcon("images/takeoff.png"));
 	ui.takeoffButton->setIconSize(QSize(64, 64));
@@ -136,6 +91,15 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 					ui.armButton->setText("DISARMED");
 					ui.armButton->setStyleSheet("QPushButton{background-color: rgb(50, 0, 0);border-radius: 5px; border: 2px solid red;color: white;} QPushButton:pressed{ background-color: rgb(30, 0, 0); }");
 				}
+
+				// update plane symbol position on map to real plane position
+				Telemetry::Position position = QuadraInterface.GetPosition();
+				Telemetry::EulerAngle angles = QuadraInterface.GetAngles();
+
+				PictureMarkerSymbol* newPlaneSymbol = reinterpret_cast<PictureMarkerSymbol*>(planeGraphic->symbol());
+				newPlaneSymbol->setAngle(angles.yaw_deg);
+				planeGraphic->setGeometry(Point(position.longitude_deg, position.latitude_deg, SpatialReference::wgs84()));
+				planeGraphic->setSymbol(newPlaneSymbol);
 			}
 			else
 			{
@@ -144,6 +108,8 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 				ui.armButton->setText("DISARMED");
 				ui.armButton->setStyleSheet("QPushButton{background-color: rgb(50, 0, 0);border-radius: 5px; border: 2px solid red;color: white;} QPushButton:pressed{ background-color: rgb(30, 0, 0); }");
+			
+				planeGraphic->setGeometry(Point());
 			}
 		});
 	timer->start();
@@ -163,7 +129,7 @@ void quadrasoftware::on_connectButton_clicked()
 			return;
 		}
 
-		MessageBox(NULL, L"Disconnection Success", L"Success", MB_OK);
+		//MessageBox(NULL, L"Disconnection Success", L"Success", MB_OK);
 	}
 	else
 	{
@@ -246,7 +212,7 @@ void quadrasoftware::on_landingButton_clicked()
 	}
 }
 
-// this functions is responsible from panel button effects
+// this function is responsible from panel button effects
 void HandleTabButtons(Ui::quadrasoftwareClass ui)
 {
 	QString activeStyleSheet = "QPushButton{background-color: rgb(97, 97, 97);border-radius: 5px;} QPushButton:pressed{background-color: rgb(70, 70, 70);};";
@@ -279,6 +245,25 @@ void quadrasoftware::on_tabButton1_clicked()
 	// set panel to map screen
 	ui.stackedWidget->setCurrentIndex(0);
 	HandleTabButtons(ui);
+}
+
+Graphic* quadrasoftware::CreatePictureMarkerSymbolGraphic(std::string imagePath, int width, int height, int angle, Point location = Point(0, 0, SpatialReference::wgs84()))
+{
+	PictureMarkerSymbol* waypoint = new PictureMarkerSymbol(QUrl::fromLocalFile(imagePath.c_str()), this);
+	waypoint->setWidth(width);
+	waypoint->setHeight(height);
+
+	Graphic* waypointPng = new Graphic(location, waypoint);
+	return waypointPng;
+}
+
+Graphic* quadrasoftware::CreatePolylineSymbolGraphic(Point location1, Point location2, SimpleLineSymbol* lineSymbol)
+{
+	PolylineBuilder* polyline_builder = new PolylineBuilder(SpatialReference::wgs84(), this);
+	polyline_builder->addPoint(location1);
+	polyline_builder->addPoint(location2);
+
+	return new Graphic(polyline_builder->toGeometry(), lineSymbol, this);
 }
 
 void quadrasoftware::closeEvent(QCloseEvent* event)

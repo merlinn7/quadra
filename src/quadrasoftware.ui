@@ -237,7 +237,7 @@
         <property name="currentIndex">
          <number>0</number>
         </property>
-        <widget class="QWidget" name="page">
+        <widget class="QWidget" name="page_1">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -469,7 +469,6 @@
           </item>
          </layout>
         </widget>
-        <widget class="QWidget" name="page_3"/>
         <widget class="QWidget" name="page_2">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -489,6 +488,11 @@
            </widget>
           </item>
          </layout>
+        </widget>
+        <widget class="QWidget" name="page_3">
+         <property name="styleSheet">
+          <string notr="true">border: 1px solid red;</string>
+         </property>
         </widget>
        </widget>
       </item>
@@ -631,7 +635,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

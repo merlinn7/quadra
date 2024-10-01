@@ -3,6 +3,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_quadrasoftware.h"
 #include <windows.h>
+#include <qfuture.h>
 
 #include "QuadraMavInterface.h"
 
@@ -13,7 +14,23 @@
 #include <Basemap.h>
 #include <MapTypes.h>
 #include <MapGraphicsView.h>
+#include "Viewpoint.h"
+#include "Graphic.h"
+#include "GraphicsOverlay.h"
+#include "GraphicsOverlayListModel.h"
+#include "GraphicListModel.h"
+#include <SimpleMarkerSymbol.h>
+#include "SymbolTypes.h"
+#include "SimpleMarkerSymbol.h"
+#include "Point.h"
+#include "SpatialReference.h"
+#include "PictureMarkerSymbol.h"
+#include <Polyline.h>
+#include <PolylineBuilder.h>
+#include "SimpleLineSymbol.h"
+#include <TaskWatcher.h>
 
+using namespace Esri::ArcGISRuntime;
 class quadrasoftware : public QMainWindow
 {
     Q_OBJECT
@@ -24,9 +41,13 @@ public:
 
     Esri::ArcGISRuntime::Map* m_map = nullptr;
     Esri::ArcGISRuntime::MapGraphicsView* m_mapView = nullptr;
+    GraphicsOverlay* map_graphicsOverlay = nullptr;
 
 private:
     Ui::quadrasoftwareClass ui;
+
+    Graphic* CreatePictureMarkerSymbolGraphic(std::string imagePath, int width, int height, int angle, Point location);
+    Graphic* CreatePolylineSymbolGraphic(Point location1, Point location2, SimpleLineSymbol* lineSymbol);
 protected:
     void closeEvent(QCloseEvent* event) override;
 private slots:

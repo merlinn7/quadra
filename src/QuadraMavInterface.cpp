@@ -1,6 +1,22 @@
 #include "QuadraMavInterface.h"
 #include <windows.h>
 
+Telemetry::Position QuadraMavInterface::GetPosition()
+{
+	if (!IsConnected())
+		return Telemetry::Position();
+
+	return position;
+}
+
+Telemetry::EulerAngle QuadraMavInterface::GetAngles()
+{
+	if (!IsConnected())
+		return Telemetry::EulerAngle();
+
+	return angles;
+}
+
 bool QuadraMavInterface::Connect(std::string url)
 {
 	// send connection request
@@ -23,13 +39,21 @@ bool QuadraMavInterface::Connect(std::string url)
 	mavlink_passthrough = std::make_unique<mavsdk::MavlinkPassthrough>(system.value());
 
 	// subscribe for values we need. 
-	// when we subscribe, these values always updates itself
+	// when we subscribe, these values always updates themself
 	telemetry->subscribe_armed([&](bool armed_) {
 		armed = armed_;
 		});
 
 	telemetry->subscribe_landed_state([&](Telemetry::LandedState state) {
 		landed_state = state;
+		});
+
+	telemetry->subscribe_position([&](Telemetry::Position pos) {
+		position = pos;
+		});
+
+	telemetry->subscribe_attitude_euler([&](Telemetry::EulerAngle euler) {
+		angles = euler;
 		});
 
 	// save handle for disconnection
