@@ -5,7 +5,9 @@
 - [x] MAVSDK temel connect ve disconnect sistemi
 - [x] Connect Dialog'da hazır TCP,UDP,Serial bağlantı url'leri
 - [x] Arm - Disarm butonu
-- [ ] Takeoff ve Landing butonları
+- [ ] Landing butonu
+- [ ] Takeoff butonu
+- [ ] Takeoff yükseklik girişi ekranı
 - [ ] Programı kapatınca crash vermesi sorununun çözülmesi
 - [ ] Config dosyalarının ayarlanması
 - [ ] Custom messagebox
