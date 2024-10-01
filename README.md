@@ -8,6 +8,7 @@
 - [x] Landing butonu
 - [x] Takeoff butonu
 - [x] Takeoff yükseklik girişi ekranı
+- [x] Harita uçağın pozisyonunun sürekli güncellenmesi
 - [ ] Programı kapatınca crash vermesi sorununun çözülmesi
 - [ ] Config dosyalarının ayarlanması
 - [ ] Custom messagebox
