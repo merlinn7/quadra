@@ -4,6 +4,7 @@
 - [x] Butonlara icon atanması ve renklerinin ayarlanması
 - [x] MAVSDK temel connect ve disconnect sistemi
 - [x] Connect Dialog'da hazır TCP,UDP,Serial bağlantı url'leri
+- [x] Arm - Disarm butonu
 - [ ] Programı kapatınca crash vermesi sorununun çözülmesi
 - [ ] Config dosyalarının ayarlanması
 - [ ] Custom messagebox
