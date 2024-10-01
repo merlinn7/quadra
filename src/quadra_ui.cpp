@@ -5,6 +5,24 @@
 #include "takeoffInputDialog.h"
 #include <qtimer.h>
 
+//
+#include "Viewpoint.h"
+#include "Graphic.h"
+#include "GraphicsOverlay.h"
+#include "GraphicsOverlayListModel.h"
+#include "GraphicListModel.h"
+#include <SimpleMarkerSymbol.h>
+#include "SymbolTypes.h"
+#include "SimpleMarkerSymbol.h"
+#include "Point.h"
+#include "SpatialReference.h"
+#include "PictureMarkerSymbol.h"
+#include <Polyline.h>
+#include <PolylineBuilder.h>
+#include "SimpleLineSymbol.h"
+#include <TaskWatcher.h>
+#include <qfuture.h>
+
 using namespace Esri::ArcGISRuntime;
 quadrasoftware::quadrasoftware(QWidget* parent)
 	: QMainWindow(parent)
@@ -28,6 +46,52 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	m_mapView = new MapGraphicsView(ui.frame_2);
 	m_mapView->setMap(m_map);
 
+	// map way point
+
+	QString imagePath = "images/way-point.png";
+	QString imagePathplane = "images/plane_icon.png";
+
+	const Viewpoint viewpoint(37.78304072903069, 29.09632386893564, 50000);
+	m_mapView->setViewpointAsync(viewpoint);
+
+	static double latitude = 37.79262103901701;
+	static double longitude = 28.96567444077879;
+
+	auto graphicsOverlay = new GraphicsOverlay(m_mapView);
+
+	PictureMarkerSymbol* waypoint = new PictureMarkerSymbol(QUrl::fromLocalFile(imagePath), this);
+	waypoint->setWidth(30);
+	waypoint->setHeight(30);
+
+	Point point(longitude, latitude, SpatialReference::wgs84());
+	Graphic* waypointPng = new Graphic(point, waypoint);
+
+	static double latitude2 = 38.08300286281516;
+	static double longitude2 = 29.39729159313304;
+
+	PictureMarkerSymbol* plane = new PictureMarkerSymbol(QUrl::fromLocalFile(imagePathplane), this);
+	plane->setWidth(60);
+	plane->setHeight(60);
+	plane->setAngle(0);
+
+	Point point2(longitude2, latitude2, SpatialReference::wgs84());
+	Graphic* ucakpng = new Graphic(point2, plane);
+
+	Graphic* pointgraphic = new Graphic(new PictureMarkerSymbol(QUrl::fromLocalFile(""), this));
+	graphicsOverlay->graphics()->append(pointgraphic);
+	PolylineBuilder* polyline_builder = new PolylineBuilder(SpatialReference::wgs84(), this);
+
+	polyline_builder->addPoint(longitude, latitude);
+	polyline_builder->addPoint(longitude2, latitude2);
+	SimpleLineSymbol* line_symbol = new SimpleLineSymbol(SimpleLineSymbolStyle::Solid, QColor(Qt::yellow), 3, this);
+	Graphic* waypointLine = new Graphic(polyline_builder->toGeometry(), line_symbol, this);
+
+	graphicsOverlay->graphics()->append(ucakpng);
+	graphicsOverlay->graphics()->append(waypointPng);
+	graphicsOverlay->graphics()->append(waypointLine);
+	m_mapView->graphicsOverlays()->append(graphicsOverlay);
+
+
 	// for making the map responsive
 	QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
 	sizePolicy.setHeightForWidth(m_mapView->sizePolicy().hasHeightForWidth());
@@ -40,6 +104,9 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 	ui.tabButton2->setIcon(QIcon("images/plane_icon.png"));
 	ui.tabButton2->setIconSize(QSize(75, 75));
+
+	ui.tabButton3->setIcon(QIcon("images/settings.png"));
+	ui.tabButton3->setIconSize(QSize(75, 75));
 
 	ui.landingButton->setIcon(QIcon("images/landing.png"));
 	ui.landingButton->setIconSize(QSize(75, 75));
@@ -190,10 +257,17 @@ void HandleTabButtons(Ui::quadrasoftwareClass ui)
 	case 0: // when map page is active 
 		ui.tabButton1->setStyleSheet(activeStyleSheet);
 		ui.tabButton2->setStyleSheet(deactiveStyleSheet);
+		ui.tabButton3->setStyleSheet(deactiveStyleSheet);
 		break;
 	case 1: // when data page is active
 		ui.tabButton1->setStyleSheet(deactiveStyleSheet);
 		ui.tabButton2->setStyleSheet(activeStyleSheet);
+		ui.tabButton3->setStyleSheet(deactiveStyleSheet);
+		break;
+	case 2:
+		ui.tabButton1->setStyleSheet(deactiveStyleSheet);
+		ui.tabButton2->setStyleSheet(deactiveStyleSheet);
+		ui.tabButton3->setStyleSheet(activeStyleSheet);
 		break;
 	default:
 		break;
@@ -218,5 +292,11 @@ void quadrasoftware::on_tabButton2_clicked()
 {
 	// set panel to map screen
 	ui.stackedWidget->setCurrentIndex(1);
+	HandleTabButtons(ui);
+}
+void quadrasoftware::on_tabButton3_clicked()
+{
+	// set panel to map screen
+	ui.stackedWidget->setCurrentIndex(2);
 	HandleTabButtons(ui);
 }

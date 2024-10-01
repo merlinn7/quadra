@@ -32,10 +32,12 @@ protected:
 private slots:
     void on_tabButton1_clicked();
     void on_tabButton2_clicked();
+    void on_tabButton3_clicked();
     void on_connectButton_clicked();
     void on_armButton_clicked();
     void on_takeoffButton_clicked();
     void on_landingButton_clicked();
+
 };
 
 
