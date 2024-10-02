@@ -58,7 +58,7 @@ private slots:
     void on_armButton_clicked();
     void on_takeoffButton_clicked();
     void on_landingButton_clicked();
-
+    void on_vtolButton_clicked();
 };
 
 

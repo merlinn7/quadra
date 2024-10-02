@@ -1,5 +1,6 @@
 #include "QuadraMavInterface.h"
 #include <windows.h>
+#include "quadra_ui.h"
 
 Telemetry::Position QuadraMavInterface::GetPosition()
 {
@@ -7,6 +8,14 @@ Telemetry::Position QuadraMavInterface::GetPosition()
 		return Telemetry::Position();
 
 	return position;
+}
+
+Telemetry::Position QuadraMavInterface::GetTargetPosition()
+{
+	if (!IsConnected())
+		return Telemetry::Position();
+
+	return targetPosition;
 }
 
 Telemetry::EulerAngle QuadraMavInterface::GetAngles()
@@ -37,7 +46,7 @@ bool QuadraMavInterface::Connect(std::string url)
 	param = std::make_unique<mavsdk::Param>(system.value());
 	offboard = std::make_unique<mavsdk::Offboard>(system.value());
 	mavlink_passthrough = std::make_unique<mavsdk::MavlinkPassthrough>(system.value());
-
+	
 	// subscribe for values we need. 
 	// when we subscribe, these values always updates themself
 	telemetry->subscribe_armed([&](bool armed_) {
@@ -54,6 +63,24 @@ bool QuadraMavInterface::Connect(std::string url)
 
 	telemetry->subscribe_attitude_euler([&](Telemetry::EulerAngle euler) {
 		angles = euler;
+		});
+
+	telemetry->subscribe_vtol_state([&](Telemetry::VtolState state) {
+		vtolState = state;
+		});
+
+	// subscribe to mavlink message MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT 
+	// for getting current target position
+	mavlink_passthrough->subscribe_message(MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT, [&](const mavlink_message_t& message) {
+		mavlink_position_target_global_int_t pos_target;
+		mavlink_msg_position_target_global_int_decode(&message, &pos_target);
+
+		// thanks chatgpt
+		double target_lat = pos_target.lat_int / 1E7;
+		double target_lon = pos_target.lon_int / 1E7;
+
+		targetPosition.latitude_deg = target_lat;
+		targetPosition.longitude_deg = target_lon;
 		});
 
 	// save handle for disconnection
@@ -147,6 +174,8 @@ bool QuadraMavInterface::Takeoff(int meters)
 		userFunc();
 	}
 
+	action->goto_location(37.41403149, -121.99623803, position.absolute_altitude_m, NULL);
+
 	return true;
 }
 
@@ -182,4 +211,12 @@ bool QuadraMavInterface::Land()
 	}
 
 	return true;
+}
+
+Telemetry::VtolState QuadraMavInterface::GetVtolState()
+{
+	if (!IsConnected())
+		return Telemetry::VtolState();
+
+	return vtolState;
 }

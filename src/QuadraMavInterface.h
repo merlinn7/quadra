@@ -40,7 +40,9 @@ private:
 
 public:
 	Telemetry::Position GetPosition();
+	Telemetry::Position GetTargetPosition();
 	Telemetry::EulerAngle GetAngles();
+	Telemetry::VtolState GetVtolState();
 
 	bool Connect(std::string url);
 	bool Disconnect();
@@ -54,6 +56,8 @@ public:
 private:
 	bool armed = false;
 	Telemetry::LandedState landed_state;
-	Telemetry::Position position;
 	Telemetry::EulerAngle angles;
+	Telemetry::VtolState vtolState;
+	Telemetry::Position position;
+	Telemetry::Position targetPosition;
 };

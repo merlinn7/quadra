@@ -36,16 +36,16 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	const Viewpoint viewpoint(37.78304072903069, 29.09632386893564, 50000);
 	m_mapView->setViewpointAsync(viewpoint);
 
-	Point goveclik = Point(28.96567444077879, 37.79262103901701, SpatialReference::wgs84());
-	Point cal = Point(29.39729159313304, 38.08300286281516, SpatialReference::wgs84());
+	//Point goveclik = Point(28.96567444077879, 37.79262103901701, SpatialReference::wgs84());
+	//Point cal = Point(29.39729159313304, 38.08300286281516, SpatialReference::wgs84());
 
-	static Graphic* waypointGraphic = CreatePictureMarkerSymbolGraphic("images/way-point.png", 30, 30, 0, goveclik);
+	static Graphic* waypointGraphic = CreatePictureMarkerSymbolGraphic("images/way-point.png", 30, 30, 0, Point());
 	static Graphic* planeGraphic = CreatePictureMarkerSymbolGraphic("images/plane_icon.png", 60, 60, 0, Point());
-	static Graphic* lineGraphic = CreatePolylineSymbolGraphic(goveclik, cal, new SimpleLineSymbol(SimpleLineSymbolStyle::Solid, QColor(Qt::white), 3, this));
+	static Graphic* lineGraphic = CreatePolylineSymbolGraphic(Point(), Point(), new SimpleLineSymbol(SimpleLineSymbolStyle::Solid, QColor(Qt::white), 3, this));
 
 	map_graphicsOverlay->graphics()->append(planeGraphic);
-	//map_graphicsOverlay->graphics()->append(waypointGraphic);
-	//map_graphicsOverlay->graphics()->append(lineGraphic);
+	map_graphicsOverlay->graphics()->append(lineGraphic);
+	map_graphicsOverlay->graphics()->append(waypointGraphic);
 
 	// for making the map responsive
 	QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
@@ -68,6 +68,9 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 	ui.takeoffButton->setIcon(QIcon("images/takeoff.png"));
 	ui.takeoffButton->setIconSize(QSize(64, 64));
+
+	ui.vtolButton->setIcon(QIcon("images/drone.png"));
+	ui.vtolButton->setIconSize(QSize(64, 64));
 
 	static bool init = false;
 	auto timer = new QTimer(parent);
@@ -92,14 +95,40 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 					ui.armButton->setStyleSheet("QPushButton{background-color: rgb(50, 0, 0);border-radius: 5px; border: 2px solid red;color: white;} QPushButton:pressed{ background-color: rgb(30, 0, 0); }");
 				}
 
-				// update plane symbol position on map to real plane position
+				// handle vtol state indicator
+				Telemetry::VtolState vtolState = QuadraInterface.GetVtolState();
+				if (vtolState == Telemetry::VtolState::Fw || vtolState == Telemetry::VtolState::TransitionToFw)
+				{
+					ui.vtolButton->setIcon(QIcon("images/plane_icon.png"));
+					ui.vtolButton->setIconSize(QSize(64, 64));
+				}
+				else if (vtolState == Telemetry::VtolState::Mc || vtolState == Telemetry::VtolState::TransitionToMc)
+				{
+					ui.vtolButton->setIcon(QIcon("images/drone.png"));
+					ui.vtolButton->setIconSize(QSize(64, 64));
+				}
+
+				// update symbol positions on map to real positions
 				Telemetry::Position position = QuadraInterface.GetPosition();
+				Telemetry::Position targetPosition = QuadraInterface.GetTargetPosition();
 				Telemetry::EulerAngle angles = QuadraInterface.GetAngles();
 
+				// plane symbol
 				PictureMarkerSymbol* newPlaneSymbol = reinterpret_cast<PictureMarkerSymbol*>(planeGraphic->symbol());
 				newPlaneSymbol->setAngle(angles.yaw_deg);
 				planeGraphic->setGeometry(Point(position.longitude_deg, position.latitude_deg, SpatialReference::wgs84()));
 				planeGraphic->setSymbol(newPlaneSymbol);
+
+				// line symbol
+				PolylineBuilder* lineSymbol_builder= new PolylineBuilder(SpatialReference::wgs84(), this);
+				lineSymbol_builder->addPoint(position.longitude_deg, position.latitude_deg);
+				lineSymbol_builder->addPoint(targetPosition.longitude_deg, targetPosition.latitude_deg);
+				lineGraphic->setGeometry(lineSymbol_builder->toGeometry());
+
+				// waypoint symbol
+				PictureMarkerSymbol* newWaypointSymbol = reinterpret_cast<PictureMarkerSymbol*>(waypointGraphic->symbol());
+				waypointGraphic->setGeometry(Point(targetPosition.longitude_deg, targetPosition.latitude_deg, SpatialReference::wgs84()));
+				waypointGraphic->setSymbol(newWaypointSymbol);
 			}
 			else
 			{
@@ -109,7 +138,10 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				ui.armButton->setText("DISARMED");
 				ui.armButton->setStyleSheet("QPushButton{background-color: rgb(50, 0, 0);border-radius: 5px; border: 2px solid red;color: white;} QPushButton:pressed{ background-color: rgb(30, 0, 0); }");
 			
+				// if not connected, reset map symbols
 				planeGraphic->setGeometry(Point());
+				lineGraphic->setGeometry(Point());
+				waypointGraphic->setGeometry(Point());
 			}
 		});
 	timer->start();
@@ -206,10 +238,21 @@ void quadrasoftware::on_takeoffButton_clicked()
 
 void quadrasoftware::on_landingButton_clicked()
 {
+	if (!QuadraInterface.IsConnected())
+	{
+		MessageBox(NULL, L"Connect to PX4 first!", L"Error", MB_OK | MB_ICONERROR);
+		return;
+	}
+
 	if (!QuadraInterface.Land())
 	{
 		MessageBox(NULL, L"Error while landing", L"Error", MB_OK | MB_ICONERROR);
 	}
+}
+
+void quadrasoftware::on_vtolButton_clicked()
+{
+
 }
 
 // this function is responsible from panel button effects
