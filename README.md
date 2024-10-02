@@ -9,6 +9,7 @@
 - [x] Takeoff butonu
 - [x] Takeoff yükseklik girişi ekranı
 - [x] Haritada uçağın pozisyonunun sürekli güncellenmesi
+- [ ] Haritada uçağın mevcut gitmekte olduğu konumun waypoint olarak işaretlenmesi
 - [ ] Programı kapatınca crash vermesi sorununun çözülmesi
 - [ ] Config dosyalarının ayarlanması
 - [ ] Custom messagebox
