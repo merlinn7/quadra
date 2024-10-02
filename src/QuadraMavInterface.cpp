@@ -174,7 +174,7 @@ bool QuadraMavInterface::Takeoff(int meters)
 		userFunc();
 	}
 
-	action->goto_location(37.41403149, -121.99623803, position.absolute_altitude_m, NULL);
+	//action->goto_location(37.41403149, -121.99623803, position.absolute_altitude_m, NULL);
 
 	return true;
 }
