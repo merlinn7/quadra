@@ -52,6 +52,8 @@ public:
 	bool Disarm();
 	bool Takeoff(int meters);
 	bool Land();
+	bool TransitionToDrone();
+	bool TransitionToFixedwing();
 
 private:
 	bool armed = false;

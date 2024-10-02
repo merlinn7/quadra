@@ -213,6 +213,30 @@ bool QuadraMavInterface::Land()
 	return true;
 }
 
+bool QuadraMavInterface::TransitionToDrone()
+{
+	if (!IsConnected())
+		return false;
+
+	auto result = action->transition_to_multicopter();
+	if (result != Action::Result::Success)
+		return false;
+
+	return true;
+}
+
+bool QuadraMavInterface::TransitionToFixedwing()
+{
+	if (!IsConnected())
+		return false;
+
+	auto result = action->transition_to_fixedwing();
+	if (result != Action::Result::Success)
+		return false;
+
+	return true;
+}
+
 Telemetry::VtolState QuadraMavInterface::GetVtolState()
 {
 	if (!IsConnected())

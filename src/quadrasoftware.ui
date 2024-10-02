@@ -352,7 +352,7 @@
                </property>
                <layout class="QGridLayout" name="gridLayout_11" rowstretch="0,0,0,0,0" columnstretch="0,0,0">
                 <property name="rightMargin">
-                 <number>1</number>
+                 <number>10</number>
                 </property>
                 <property name="spacing">
                  <number>6</number>
@@ -607,7 +607,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border: 1px solid blue;</string>
+         <string notr="true">QFrame{border-radius: 12px; border: 1px solid #686D76;  background-color:#424242 ;}</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::StyledPanel</enum>
@@ -731,7 +731,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

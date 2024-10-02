@@ -24,7 +24,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	ArcGISRuntimeEnvironment::setApiKey(esriApiKey);
 
 	// map object 
-	m_map = new Map(BasemapStyle::ArcGISStreetsNight, this);
+	m_map = new Map(BasemapStyle::OsmDarkGray, this);
 	m_mapView = new MapGraphicsView(ui.frame_2);
 	m_mapView->setMap(m_map);
 
@@ -120,7 +120,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				planeGraphic->setSymbol(newPlaneSymbol);
 
 				// line symbol
-				PolylineBuilder* lineSymbol_builder= new PolylineBuilder(SpatialReference::wgs84(), this);
+				PolylineBuilder* lineSymbol_builder = new PolylineBuilder(SpatialReference::wgs84(), this);
 				lineSymbol_builder->addPoint(position.longitude_deg, position.latitude_deg);
 				lineSymbol_builder->addPoint(targetPosition.longitude_deg, targetPosition.latitude_deg);
 				lineGraphic->setGeometry(lineSymbol_builder->toGeometry());
@@ -252,7 +252,23 @@ void quadrasoftware::on_landingButton_clicked()
 
 void quadrasoftware::on_vtolButton_clicked()
 {
+	if (!QuadraInterface.IsConnected())
+	{
+		MessageBox(NULL, L"Connect to PX4 first!", L"Error", MB_OK | MB_ICONERROR);
+		return;
+	}
 
+	Telemetry::VtolState vtolState = QuadraInterface.GetVtolState();
+	if (vtolState == Telemetry::VtolState::Mc || vtolState == Telemetry::VtolState::TransitionToMc)
+	{
+		if (!QuadraInterface.TransitionToFixedwing())
+			MessageBox(NULL, L"Error while switching to fixedwing", L"Error", MB_ICONERROR);
+	}
+	else if (vtolState == Telemetry::VtolState::Fw || vtolState == Telemetry::VtolState::TransitionToFw)
+	{
+		if (!QuadraInterface.TransitionToDrone())
+			MessageBox(NULL, L"Error while switching to drone", L"Error", MB_ICONERROR);
+	}
 }
 
 // this function is responsible from panel button effects
