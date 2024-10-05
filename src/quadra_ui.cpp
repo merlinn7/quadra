@@ -4,6 +4,9 @@
 #include "connectDialog.h"
 #include "takeoffInputDialog.h"
 #include <qtimer.h>
+#include <QCheckBox>
+#include <QWidgetAction>
+#include "gyroscope.hpp"
 
 using namespace Esri::ArcGISRuntime;
 quadrasoftware::quadrasoftware(QWidget* parent)
@@ -28,13 +31,19 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	m_mapView = new MapGraphicsView(ui.frame_2);
 	m_mapView->setMap(m_map);
 
+	// for making the map responsive
+	QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
+	sizePolicy.setHeightForWidth(m_mapView->sizePolicy().hasHeightForWidth());
+	m_mapView->setSizePolicy(sizePolicy);
+	ui.gridLayout_3->addWidget(m_mapView);
+
+	// map custom context menu (right-click menu)
+	m_mapView->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+	connect(m_mapView, &MapGraphicsView::customContextMenuRequested, this, &quadrasoftware::mapContextMenuRequest);
+
 	// init arcgis map graphics overlay
 	map_graphicsOverlay = new GraphicsOverlay(m_mapView);
 	m_mapView->graphicsOverlays()->append(map_graphicsOverlay);
-
-	// create map way point
-	const Viewpoint viewpoint(37.78304072903069, 29.09632386893564, 50000);
-	m_mapView->setViewpointAsync(viewpoint);
 
 	//Point goveclik = Point(28.96567444077879, 37.79262103901701, SpatialReference::wgs84());
 	//Point cal = Point(29.39729159313304, 38.08300286281516, SpatialReference::wgs84());
@@ -47,11 +56,13 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	map_graphicsOverlay->graphics()->append(lineGraphic);
 	map_graphicsOverlay->graphics()->append(waypointGraphic);
 
-	// for making the map responsive
-	QSizePolicy sizePolicy(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Minimum);
-	sizePolicy.setHeightForWidth(m_mapView->sizePolicy().hasHeightForWidth());
-	m_mapView->setSizePolicy(sizePolicy);
-	ui.gridLayout_3->addWidget(m_mapView);
+	// gyroscope
+	QGraphicsScene* gyroscopeIndicatorScene = new QGraphicsScene(this);
+	gyroscopeIndicatorScene->addPixmap(QPixmap("images/gyroscope.png"));
+	ui.gyroscopeIndicator->setScene(gyroscopeIndicatorScene);
+
+	PitchIndicator* pitchWidget = new PitchIndicator(ui.frame_5);
+	pitchWidget->setGeometry(QRect(QPoint(40, 40), QSize(200, 180)));
 
 	// buttons
 	ui.tabButton1->setIcon(QIcon("images/map_icon.png"));
@@ -76,7 +87,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	auto timer = new QTimer(parent);
 
 	// main loop, runs on every frame
-	connect(timer, &QTimer::timeout, [this]
+	connect(timer, &QTimer::timeout, [this, pitchWidget]
 		{
 			if (QuadraInterface.IsConnected())
 			{
@@ -113,6 +124,11 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				Telemetry::Position targetPosition = QuadraInterface.GetTargetPosition();
 				Telemetry::EulerAngle angles = QuadraInterface.GetAngles();
 
+				// handle gyroscope
+				pitchWidget->setValue(angles.pitch_deg);
+				ui.gyroscopeIndicator->resetTransform();
+				ui.gyroscopeIndicator->rotate(angles.roll_deg);
+
 				// plane symbol
 				PictureMarkerSymbol* newPlaneSymbol = reinterpret_cast<PictureMarkerSymbol*>(planeGraphic->symbol());
 				newPlaneSymbol->setAngle(angles.yaw_deg);
@@ -129,6 +145,17 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				PictureMarkerSymbol* newWaypointSymbol = reinterpret_cast<PictureMarkerSymbol*>(waypointGraphic->symbol());
 				waypointGraphic->setGeometry(Point(targetPosition.longitude_deg, targetPosition.latitude_deg, SpatialReference::wgs84()));
 				waypointGraphic->setSymbol(newWaypointSymbol);
+
+				// optimization fix: without this, memory usage increases with each frame
+				delete newWaypointSymbol;
+				delete lineSymbol_builder;
+				delete newPlaneSymbol;
+
+				if (bTrackPlane)
+				{
+					const Viewpoint viewpoint(Point(position.longitude_deg, position.latitude_deg, SpatialReference::wgs84()), 5000);
+					m_mapView->setViewpointAsync(viewpoint);
+				}
 			}
 			else
 			{
@@ -262,13 +289,77 @@ void quadrasoftware::on_vtolButton_clicked()
 	if (vtolState == Telemetry::VtolState::Mc || vtolState == Telemetry::VtolState::TransitionToMc)
 	{
 		if (!QuadraInterface.TransitionToFixedwing())
-			MessageBox(NULL, L"Error while switching to fixedwing", L"Error", MB_ICONERROR);
+			MessageBox(NULL, TRANSITION_FW_ERROR_MSG, L"Error", MB_ICONERROR);
 	}
 	else if (vtolState == Telemetry::VtolState::Fw || vtolState == Telemetry::VtolState::TransitionToFw)
 	{
 		if (!QuadraInterface.TransitionToDrone())
-			MessageBox(NULL, L"Error while switching to drone", L"Error", MB_ICONERROR);
+			MessageBox(NULL, TRANSITION_MC_ERROR_MSG, L"Error", MB_ICONERROR);
 	}
+}
+
+void test()
+{
+	MessageBox(NULL, L"EHE", L"", MB_OK);
+}
+
+// in development
+void quadrasoftware::mapContextMenuRequest(QPoint pos)
+{
+	QMenu* menu = new QMenu(m_mapView);
+
+	// go to location sub menu
+	QMenu* goToLocation_menu = new QMenu("Go To Location", m_mapView);
+
+	// in drone mode
+	QAction* goToLocationDrone_action = new QAction("Drone", goToLocation_menu);
+	connect(goToLocationDrone_action, &QAction::triggered, [this, pos]() {
+		QPoint mapCursorPos = pos;
+		Point location = Point(GeometryEngine::project(m_mapView->screenToLocation(mapCursorPos.x(), mapCursorPos.y()), 
+			Esri::ArcGISRuntime::SpatialReference::wgs84()));
+
+		HANDLE_ERRORS(QuadraInterface.TransitionToDrone(), TRANSITION_MC_ERROR_MSG);
+		HANDLE_ERRORS(QuadraInterface.GoToLocation(location.y(), location.x(), QuadraInterface.GetPosition().absolute_altitude_m),
+			GOTO_LOCATION_ERROR_MSG);
+		});
+	goToLocation_menu->addAction(goToLocationDrone_action);
+
+	//in vtol mode
+	QAction* goToLocationVtol_action = new QAction("VTOL", goToLocation_menu);
+	connect(goToLocationVtol_action, &QAction::triggered, [this, pos]() {
+		QPoint mapCursorPos = pos;
+		Point location = Point(GeometryEngine::project(m_mapView->screenToLocation(mapCursorPos.x(), mapCursorPos.y()),
+			Esri::ArcGISRuntime::SpatialReference::wgs84()));
+
+		HANDLE_ERRORS(QuadraInterface.TransitionToFixedwing(), TRANSITION_FW_ERROR_MSG);
+		HANDLE_ERRORS(QuadraInterface.GoToLocation(location.y(), location.x(), QuadraInterface.GetPosition().absolute_altitude_m),
+			GOTO_LOCATION_ERROR_MSG);
+		HANDLE_ERRORS(QuadraInterface.TransitionToDrone(), TRANSITION_MC_ERROR_MSG);
+		});
+	goToLocation_menu->addAction(goToLocationVtol_action);
+
+	menu->addMenu(goToLocation_menu);
+
+	// create checkbox object
+	QAction* trackPlane_action = new QAction("Track the plane", this);
+	trackPlane_action->setCheckable(true);
+	trackPlane_action->setChecked(bTrackPlane);
+	// set action value to our bool variable
+	connect(trackPlane_action, &QAction::triggered, [this, trackPlane_action]() {
+		bTrackPlane = trackPlane_action->isChecked();
+		});
+	menu->addAction(trackPlane_action);
+
+	menu->popup(m_mapView->mapToGlobal(pos));
+}
+
+void quadrasoftware::setCursorViewpoint(const QPoint& pos)
+{
+	Point location = m_mapView->screenToLocation(pos.x(), pos.y());
+
+	// create map way point
+	const Viewpoint viewpoint(location, 50000);
+	m_mapView->setViewpointAsync(viewpoint);
 }
 
 // this function is responsible from panel button effects

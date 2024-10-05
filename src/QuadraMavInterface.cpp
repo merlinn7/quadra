@@ -26,6 +26,7 @@ Telemetry::EulerAngle QuadraMavInterface::GetAngles()
 	return angles;
 }
 
+bool firstConnection = true;
 bool QuadraMavInterface::Connect(std::string url)
 {
 	// send connection request
@@ -33,10 +34,9 @@ bool QuadraMavInterface::Connect(std::string url)
 	system = mavsdk.first_autopilot(3.0);
 
 	// check connection success
-	if (connectionResult.first != mavsdk::ConnectionResult::Success ||
+	if (
 		!system || !system.value().get() || !system.value().get()->is_connected())
 	{
-		system.reset();
 		return false;
 	}
 
@@ -68,7 +68,7 @@ bool QuadraMavInterface::Connect(std::string url)
 	telemetry->subscribe_vtol_state([&](Telemetry::VtolState state) {
 		vtolState = state;
 		});
-
+	
 	// subscribe to mavlink message MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT 
 	// for getting current target position
 	mavlink_passthrough->subscribe_message(MAVLINK_MSG_ID_POSITION_TARGET_GLOBAL_INT, [&](const mavlink_message_t& message) {
@@ -82,7 +82,7 @@ bool QuadraMavInterface::Connect(std::string url)
 		targetPosition.latitude_deg = target_lat;
 		targetPosition.longitude_deg = target_lon;
 		});
-
+	
 	// save handle for disconnection
 	handle = connectionResult.second;
 	return true;
@@ -233,6 +233,22 @@ bool QuadraMavInterface::TransitionToFixedwing()
 	auto result = action->transition_to_fixedwing();
 	if (result != Action::Result::Success)
 		return false;
+
+	return true;
+}
+
+bool QuadraMavInterface::GoToLocation(double latitude, double longitude, float altitude, double proximityLimit)
+{
+	if (!IsConnected() || !IsArmed())
+		return false;
+
+	auto result = action->goto_location(latitude, longitude, altitude, NAN);
+	if (result != Action::Result::Success)
+		return false;
+
+	while (fabs(position.latitude_deg - latitude) > proximityLimit || fabs(position.longitude_deg - longitude) > proximityLimit) {
+		userFunc();
+	}
 
 	return true;
 }

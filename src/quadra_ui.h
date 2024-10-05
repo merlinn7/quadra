@@ -29,6 +29,7 @@
 #include <PolylineBuilder.h>
 #include "SimpleLineSymbol.h"
 #include <TaskWatcher.h>
+#include <GeometryEngine.h>
 
 using namespace Esri::ArcGISRuntime;
 class quadrasoftware : public QMainWindow
@@ -42,6 +43,7 @@ public:
     Esri::ArcGISRuntime::Map* m_map = nullptr;
     Esri::ArcGISRuntime::MapGraphicsView* m_mapView = nullptr;
     GraphicsOverlay* map_graphicsOverlay = nullptr;
+    bool bTrackPlane = false;
 
 private:
     Ui::quadrasoftwareClass ui;
@@ -59,6 +61,8 @@ private slots:
     void on_takeoffButton_clicked();
     void on_landingButton_clicked();
     void on_vtolButton_clicked();
+    void mapContextMenuRequest(QPoint pos);
+    void setCursorViewpoint(const QPoint& pos);
 };
 
 
@@ -66,3 +70,12 @@ QuadraMavInterface QuadraInterface = QuadraMavInterface( []() {
     // fixed: render ui while processing mavlink
     QApplication::processEvents();
     } );
+
+// semi-auto error handling for quadra return values
+// if return value is false then show error and return
+#define HANDLE_ERRORS(result, error_msg) if (!result) {MessageBox(NULL, error_msg, L"Error", MB_ICONERROR); return;} 
+
+// error messages
+#define TRANSITION_FW_ERROR_MSG L"Error while switching to fixedwing"
+#define TRANSITION_MC_ERROR_MSG L"Error while switching to drone"
+#define GOTO_LOCATION_ERROR_MSG L"Error while goto_location"

@@ -54,6 +54,7 @@ public:
 	bool Land();
 	bool TransitionToDrone();
 	bool TransitionToFixedwing();
+	bool GoToLocation(double latitude, double longitude, float altitude, double proximityLimit = 0.0008000);
 
 private:
 	bool armed = false;
