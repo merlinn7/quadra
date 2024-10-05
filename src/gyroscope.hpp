@@ -14,9 +14,14 @@ public:
 
     }
 
-    void setValue(int pitchValue)
+    void setPitchValue(int pitchValue)
     {
         pitch = pitchValue;
+    }
+
+    void setRollValue(int rollValue)
+    {
+        roll = rollValue;
     }
 
 protected:
@@ -29,9 +34,18 @@ protected:
         int centerY = height() / 2;
 
         painter.setPen(QPen(Qt::white, 2));
+        painter.save();
+
+        // thanks chatgpt
+        painter.translate(centerX, centerY);
+        painter.rotate(roll); 
+        painter.translate(-centerX, -centerY);
+
         // render 2 lines in the middle
         painter.drawLine(centerX - 100, centerY, centerX - 30, centerY);
         painter.drawLine(centerX + 100, centerY, centerX + 30, centerY);
+
+        painter.restore();
 
         QFont font = painter.font();
         font.setPointSize(12);
@@ -66,4 +80,5 @@ private slots:
 
 private:
     int pitch;
+    int roll = 0;
 };

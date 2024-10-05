@@ -58,18 +58,26 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 	// compass indicator
 	QGraphicsScene* compassIndicatorScene = new QGraphicsScene(this);
-	compassIndicatorScene->addPixmap(QPixmap("images/compass.png").scaled(230,230));
+	compassIndicatorScene->addPixmap(QPixmap("images/compass.png").scaled(220,220));
 	ui.compassIndicator->setScene(compassIndicatorScene);
 
 	// compass plane icon
 	QGraphicsScene* compassPlaneIndicatorScene = new QGraphicsScene(this);
 	compassPlaneIndicatorScene->addPixmap(QPixmap("images/plane_icon.png").scaled(101,121));
 	ui.compassPlane->setScene(compassPlaneIndicatorScene);
+	// set render options for better quality
+	ui.compassPlane->setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, false);
+	ui.compassPlane->setRenderHint(QPainter::Antialiasing, true);
+	ui.compassPlane->setRenderHint(QPainter::SmoothPixmapTransform, true);
 
 	// gyroscope indicator
 	QGraphicsScene* gyroscopeIndicatorScene = new QGraphicsScene(this);
 	gyroscopeIndicatorScene->addPixmap(QPixmap("images/gyroscope.png"));
 	ui.gyroscopeIndicator->setScene(gyroscopeIndicatorScene);
+	// set render options for better quality
+	ui.gyroscopeIndicator->setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing, false);
+	ui.gyroscopeIndicator->setRenderHint(QPainter::Antialiasing, true);
+	ui.gyroscopeIndicator->setRenderHint(QPainter::SmoothPixmapTransform, true);
 
 	// pitch indicator
 	PitchIndicator* pitchWidget = new PitchIndicator(ui.frame_5);
@@ -136,7 +144,8 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				Telemetry::EulerAngle angles = QuadraInterface.GetAngles();
 
 				// handle gyroscope
-				pitchWidget->setValue(angles.pitch_deg);
+				pitchWidget->setPitchValue(angles.pitch_deg);
+				pitchWidget->setRollValue(angles.roll_deg);
 				ui.gyroscopeIndicator->resetTransform();
 				ui.gyroscopeIndicator->rotate(angles.roll_deg);
 
