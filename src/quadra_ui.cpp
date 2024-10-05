@@ -56,11 +56,22 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	map_graphicsOverlay->graphics()->append(lineGraphic);
 	map_graphicsOverlay->graphics()->append(waypointGraphic);
 
-	// gyroscope
+	// compass indicator
+	QGraphicsScene* compassIndicatorScene = new QGraphicsScene(this);
+	compassIndicatorScene->addPixmap(QPixmap("images/compass.png").scaled(230,230));
+	ui.compassIndicator->setScene(compassIndicatorScene);
+
+	// compass plane icon
+	QGraphicsScene* compassPlaneIndicatorScene = new QGraphicsScene(this);
+	compassPlaneIndicatorScene->addPixmap(QPixmap("images/plane_icon.png").scaled(101,121));
+	ui.compassPlane->setScene(compassPlaneIndicatorScene);
+
+	// gyroscope indicator
 	QGraphicsScene* gyroscopeIndicatorScene = new QGraphicsScene(this);
 	gyroscopeIndicatorScene->addPixmap(QPixmap("images/gyroscope.png"));
 	ui.gyroscopeIndicator->setScene(gyroscopeIndicatorScene);
 
+	// pitch indicator
 	PitchIndicator* pitchWidget = new PitchIndicator(ui.frame_5);
 	pitchWidget->setGeometry(QRect(QPoint(40, 40), QSize(200, 180)));
 
@@ -128,6 +139,10 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 				pitchWidget->setValue(angles.pitch_deg);
 				ui.gyroscopeIndicator->resetTransform();
 				ui.gyroscopeIndicator->rotate(angles.roll_deg);
+
+				// handle compass
+				ui.compassIndicator->resetTransform();
+				ui.compassIndicator->rotate(-angles.yaw_deg);
 
 				// plane symbol
 				PictureMarkerSymbol* newPlaneSymbol = reinterpret_cast<PictureMarkerSymbol*>(planeGraphic->symbol());

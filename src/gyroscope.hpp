@@ -40,8 +40,8 @@ protected:
         QFontMetrics metrics(font);
 
         // render degrees between 180 and -180
-        for (int i = -180; i <= 180; i += 10) {
-            int offsetY = centerY + (i - pitch) * 5 + 5;
+        for (int i = 180; i >= -180; i -= 10) {
+            int offsetY = centerY + (pitch - i) * 5 + 5;
             QString text = QString::number(i);
 
             int textWidth = metrics.horizontalAdvance(text);
@@ -50,6 +50,7 @@ protected:
                 painter.drawText(centerX - textWidth / 2, offsetY, text);
             }
         }
+
     }
 
 private slots:
