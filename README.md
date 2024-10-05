@@ -10,6 +10,8 @@
 - [x] Takeoff yükseklik girişi ekranı
 - [x] Haritada uçağın pozisyonunun sürekli güncellenmesi
 - [x] Haritada uçağın mevcut gitmekte olduğu konumun waypoint olarak işaretlenmesi
+- [x] Pusula ve Jiroskop eklenmesi
+- [ ] Sağ tarafta mod, durum vb. göstergelerin eklenmesi
 - [ ] Programı kapatınca crash vermesi sorununun çözülmesi
 - [ ] Config dosyalarının ayarlanması
 - [ ] Custom messagebox
