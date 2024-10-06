@@ -552,16 +552,26 @@ background-color: rgb(38, 38, 38);
 color:white;
 width:30px;
 height:30px;
-border:1px solid white;
- text-align: center;
+border:0px solid white;
+text-align: center;
 }
 QTableCornerButton::section {
 background-color: rgb(38, 38, 38);
 
+}
+QTableWidget {
+border-radius: 0px; 
+border: 1px solid white; 
 }</string>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
                </property>
                <property name="showGrid">
                 <bool>true</bool>
+               </property>
+               <property name="gridStyle">
+                <enum>Qt::DashLine</enum>
                </property>
                <property name="sortingEnabled">
                 <bool>false</bool>
@@ -570,10 +580,10 @@ background-color: rgb(38, 38, 38);
                 <bool>false</bool>
                </property>
                <property name="rowCount">
-                <number>5</number>
+                <number>2</number>
                </property>
                <property name="columnCount">
-                <number>4</number>
+                <number>3</number>
                </property>
                <attribute name="horizontalHeaderVisible">
                 <bool>true</bool>
@@ -581,11 +591,26 @@ background-color: rgb(38, 38, 38);
                <attribute name="horizontalHeaderCascadingSectionResizes">
                 <bool>false</bool>
                </attribute>
+               <attribute name="horizontalHeaderMinimumSectionSize">
+                <number>15</number>
+               </attribute>
+               <attribute name="horizontalHeaderDefaultSectionSize">
+                <number>70</number>
+               </attribute>
                <attribute name="horizontalHeaderHighlightSections">
-                <bool>true</bool>
+                <bool>false</bool>
+               </attribute>
+               <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                <bool>false</bool>
                </attribute>
                <attribute name="horizontalHeaderStretchLastSection">
-                <bool>true</bool>
+                <bool>false</bool>
+               </attribute>
+               <attribute name="verticalHeaderDefaultSectionSize">
+                <number>30</number>
+               </attribute>
+               <attribute name="verticalHeaderHighlightSections">
+                <bool>false</bool>
                </attribute>
                <row>
                 <property name="text">
@@ -603,30 +628,6 @@ background-color: rgb(38, 38, 38);
                  <set>AlignCenter</set>
                 </property>
                </row>
-               <row>
-                <property name="text">
-                 <string>3</string>
-                </property>
-                <property name="textAlignment">
-                 <set>AlignCenter</set>
-                </property>
-               </row>
-               <row>
-                <property name="text">
-                 <string>4</string>
-                </property>
-                <property name="textAlignment">
-                 <set>AlignCenter</set>
-                </property>
-               </row>
-               <row>
-                <property name="text">
-                 <string>5</string>
-                </property>
-                <property name="textAlignment">
-                 <set>AlignCenter</set>
-                </property>
-               </row>
                <column>
                 <property name="text">
                  <string>way point</string>
@@ -634,11 +635,14 @@ background-color: rgb(38, 38, 38);
                </column>
                <column>
                 <property name="text">
-                 <string>sonrki way-point</string>
+                 <string>column2</string>
                 </property>
                </column>
-               <column/>
-               <column/>
+               <column>
+                <property name="text">
+                 <string>column3</string>
+                </property>
+               </column>
               </widget>
              </item>
             </layout>
@@ -986,7 +990,7 @@ background-color: rgb(38, 38, 38);
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>18</height>
     </rect>
    </property>
   </widget>

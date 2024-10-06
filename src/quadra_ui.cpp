@@ -19,7 +19,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	ui.gridFrame->setStyleSheet("QFrame{border-radius: 12px; border: 1px solid #686D76;  background-color:#424242 ;}");
 	ui.frame->setStyleSheet("QFrame{border-radius: 12px; border: 1px solid #686D76;  background-color:#424242 ;}");
 	ui.frame_2->setStyleSheet("QFrame{border-radius: 12px; border: 0px solid #686D76;  background-color:#424242 ;}");
-	ui.frame_3->setStyleSheet("QFrame{border-radius: 12px; border: 1px solid #686D76; background-color:#424242 ;}");
+	ui.frame_3->setStyleSheet("QFrame{border-radius: 12px; border: 0px solid #686D76; background-color:#424242 ;}");
 	ui.stackedWidget->setStyleSheet("QFrame{border-radius: 12px; border: 1px solid #686D76; background-color:#424242 ;}");
 
 	// map api key
@@ -102,11 +102,9 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	ui.vtolButton->setIcon(QIcon("images/drone.png"));
 	ui.vtolButton->setIconSize(QSize(64, 64));
 
-	static bool init = false;
-	auto timer = new QTimer(parent);
-
 	// waypointTable
 	ui.waypointTable->setCornerButtonEnabled(false);
+	ui.waypointTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 	// Digital data 
 
@@ -118,6 +116,9 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	line->addPixmap(QPixmap("images/line.png").scaled(35, 35));
 	ui.line->setScene(line);
 	*/
+
+	static bool init = false;
+	auto timer = new QTimer(parent);
 
 	// main loop, runs on every frame
 	connect(timer, &QTimer::timeout, [this, pitchWidget]
