@@ -357,8 +357,24 @@
                 <property name="spacing">
                  <number>6</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QFrame" name="gridFrame_13">
+                <item row="0" column="1">
+                 <spacer name="horizontalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>1</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QFrame" name="gridFrame_11">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -374,7 +390,63 @@
                   <property name="styleSheet">
                    <string notr="true">background-color: rgb(38, 38, 38);</string>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_17"/>
+                  <layout class="QGridLayout" name="gridLayout_15"/>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <spacer name="verticalSpacer_10">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="3" column="2">
+                 <spacer name="verticalSpacer_9">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="0">
+                 <spacer name="verticalSpacer_8">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QFrame" name="gridFrame_8">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_12"/>
                  </widget>
                 </item>
                 <item row="4" column="2">
@@ -383,6 +455,14 @@
                    <string notr="true">background-color: rgb(38, 38, 38);</string>
                   </property>
                   <layout class="QGridLayout" name="gridLayout_16"/>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QFrame" name="gridFrame_9">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_13"/>
                  </widget>
                 </item>
                 <item row="3" column="0">
@@ -417,22 +497,6 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="1" column="0">
-                 <spacer name="verticalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                 <item row="2" column="1">
                  <spacer name="horizontalSpacer_7">
                   <property name="orientation">
@@ -449,38 +513,6 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="4" column="0">
-                 <widget class="QFrame" name="gridFrame_8">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_12"/>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <spacer name="horizontalSpacer_6">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>10</width>
-                    <height>1</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QFrame" name="gridFrame_9">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_13"/>
-                 </widget>
-                </item>
                 <item row="2" column="0">
                  <widget class="QFrame" name="gridFrame_10">
                   <property name="styleSheet">
@@ -489,40 +521,8 @@
                   <layout class="QGridLayout" name="gridLayout_14"/>
                  </widget>
                 </item>
-                <item row="3" column="2">
-                 <spacer name="verticalSpacer_9">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="2">
-                 <spacer name="verticalSpacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QFrame" name="gridFrame_11">
+                <item row="0" column="0">
+                 <widget class="QFrame" name="gridFrame_13">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -538,26 +538,107 @@
                   <property name="styleSheet">
                    <string notr="true">background-color: rgb(38, 38, 38);</string>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_15"/>
+                  <layout class="QVBoxLayout" name="verticalLayout_7"/>
                  </widget>
                 </item>
                </layout>
               </widget>
              </item>
              <item>
-              <widget class="QWidget" name="widget_2" native="true">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
+              <widget class="QTableWidget" name="waypointTable">
+               <property name="styleSheet">
+                <string notr="true">QHeaderView::section{
+background-color: rgb(38, 38, 38);
+color:white;
+width:30px;
+height:30px;
+border:1px solid white;
+ text-align: center;
+}
+QTableCornerButton::section {
+background-color: rgb(38, 38, 38);
+
+}</string>
                </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
+               <property name="showGrid">
+                <bool>true</bool>
                </property>
+               <property name="sortingEnabled">
+                <bool>false</bool>
+               </property>
+               <property name="cornerButtonEnabled">
+                <bool>false</bool>
+               </property>
+               <property name="rowCount">
+                <number>5</number>
+               </property>
+               <property name="columnCount">
+                <number>4</number>
+               </property>
+               <attribute name="horizontalHeaderVisible">
+                <bool>true</bool>
+               </attribute>
+               <attribute name="horizontalHeaderCascadingSectionResizes">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="horizontalHeaderHighlightSections">
+                <bool>true</bool>
+               </attribute>
+               <attribute name="horizontalHeaderStretchLastSection">
+                <bool>true</bool>
+               </attribute>
+               <row>
+                <property name="text">
+                 <string>1</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>2</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>3</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>4</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </row>
+               <row>
+                <property name="text">
+                 <string>5</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignCenter</set>
+                </property>
+               </row>
+               <column>
+                <property name="text">
+                 <string>way point</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>sonrki way-point</string>
+                </property>
+               </column>
+               <column/>
+               <column/>
               </widget>
              </item>
             </layout>
@@ -905,7 +986,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>18</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

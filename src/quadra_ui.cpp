@@ -105,6 +105,20 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	static bool init = false;
 	auto timer = new QTimer(parent);
 
+	// waypointTable
+	ui.waypointTable->setCornerButtonEnabled(false);
+
+	// Digital data 
+
+	/*QGraphicsScene* speedlogo = new QGraphicsScene(this);
+	speedlogo->addPixmap(QPixmap("images/speed.png").scaled(40, 40));
+	ui.speedlogo->setScene(speedlogo);
+
+	QGraphicsScene* line = new QGraphicsScene(this);
+	line->addPixmap(QPixmap("images/line.png").scaled(35, 35));
+	ui.line->setScene(line);
+	*/
+
 	// main loop, runs on every frame
 	connect(timer, &QTimer::timeout, [this, pitchWidget]
 		{
