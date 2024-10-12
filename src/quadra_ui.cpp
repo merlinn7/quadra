@@ -7,7 +7,8 @@
 #include <QCheckBox>
 #include <QWidgetAction>
 #include "gyroscope.hpp"
-
+#include <nlohmann/json.hpp>
+#include <curl/curl.h>
 using namespace Esri::ArcGISRuntime;
 quadrasoftware::quadrasoftware(QWidget* parent)
 	: QMainWindow(parent)
@@ -108,14 +109,29 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 	// Digital data 
 
-	/*QGraphicsScene* speedlogo = new QGraphicsScene(this);
-	speedlogo->addPixmap(QPixmap("images/speed.png").scaled(40, 40));
-	ui.speedlogo->setScene(speedlogo);
+	QPixmap pix1("images/speed");
+	QGraphicsScene* scene1 = new QGraphicsScene(this);
+	QPixmap scaledPix = pix1.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QGraphicsPixmapItem* pixmap_item1 = scene1->addPixmap(scaledPix);
+	ui.horizontalSpeed->setScene(scene1);
 
-	QGraphicsScene* line = new QGraphicsScene(this);
-	line->addPixmap(QPixmap("images/line.png").scaled(35, 35));
-	ui.line->setScene(line);
-	*/
+	QPixmap pix2("images/line.png");
+	QGraphicsScene* scene2 = new QGraphicsScene(this);
+	QPixmap scaledPix2 = pix2.scaled(15, 15, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QGraphicsPixmapItem* pixmap_item2 = scene2->addPixmap(scaledPix2);
+	ui.dataline1->setScene(scene2);
+
+	QPixmap pix3("images/speed");
+	QGraphicsScene* scene3 = new QGraphicsScene(this);
+	QPixmap scaledPix3 = pix3.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QGraphicsPixmapItem* pixmap_item3 = scene3->addPixmap(scaledPix3);
+	ui.verticalSpeed->setScene(scene3);
+
+	QPixmap pix4("images/line.png");
+	QGraphicsScene* scene4 = new QGraphicsScene(this);
+	QPixmap scaledPix4 = pix2.scaled(15, 15, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+	QGraphicsPixmapItem* pixmap_item4 = scene4->addPixmap(scaledPix4);
+	ui.dataline2->setScene(scene4);
 
 	static bool init = false;
 	auto timer = new QTimer(parent);

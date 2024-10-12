@@ -47,7 +47,7 @@ public:
 
 private:
     Ui::quadrasoftwareClass ui;
-
+    QGraphicsScene* Scene;
     Graphic* CreatePictureMarkerSymbolGraphic(std::string imagePath, int width, int height, int angle, Point location);
     Graphic* CreatePolylineSymbolGraphic(Point location1, Point location2, SimpleLineSymbol* lineSymbol);
 protected:

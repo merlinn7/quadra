@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>712</height>
+    <width>1058</width>
+    <height>831</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
@@ -18,6 +24,9 @@
   </property>
   <property name="windowTitle">
    <string>quadrasoftware</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
    <string notr="true"/>
@@ -105,6 +114,80 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QFrame" name="gridFrame">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QFrame{border:none;}</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="0,0" rowminimumheight="15,15" columnminimumwidth="120,120">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetDefaultConstraint</enum>
+          </property>
+          <property name="leftMargin">
+           <number>10</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>10</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <property name="spacing">
+           <number>10</number>
+          </property>
+          <item row="0" column="1">
+           <widget class="QWidget" name="widget_4" native="true">
+            <property name="styleSheet">
+             <string notr="true">QFrame QWidget {
+    border-radius: 10px;         
+    border: 1px solid	black;  
+    background-color: rgb(38, 38, 38);
+}</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QWidget" name="widget_3" native="true">
+            <property name="styleSheet">
+             <string notr="true">QFrame QWidget {
+    border-radius: 10px;         
+    border: 1px solid	black;  
+    background-color: rgb(38, 38, 38);
+}</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QWidget" name="widget_5" native="true">
+            <property name="styleSheet">
+             <string notr="true">QFrame QWidget {
+    border-radius: 10px;         
+    border: 1px solid	black;  
+    background-color: rgb(38, 38, 38);
+}</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QWidget" name="widget_2" native="true">
+            <property name="styleSheet">
+             <string notr="true">QFrame QWidget {
+    border-radius: 10px;         
+    border: 1px solid	black;  
+    background-color: rgb(38, 38, 38);
+}</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="vtolButton">
@@ -363,8 +446,16 @@
                 <property name="spacing">
                  <number>6</number>
                 </property>
-                <item row="0" column="1">
-                 <spacer name="horizontalSpacer_6">
+                <item row="4" column="2">
+                 <widget class="QFrame" name="gridFrame_12">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_16"/>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <spacer name="horizontalSpacer_7">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -375,42 +466,6 @@
                    <size>
                     <width>10</width>
                     <height>1</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QFrame" name="gridFrame_11">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_15"/>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <spacer name="verticalSpacer_10">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeType">
-                   <enum>QSizePolicy::Fixed</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>10</width>
-                    <height>10</height>
                    </size>
                   </property>
                  </spacer>
@@ -447,32 +502,8 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="4" column="0">
-                 <widget class="QFrame" name="gridFrame_8">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_12"/>
-                 </widget>
-                </item>
-                <item row="4" column="2">
-                 <widget class="QFrame" name="gridFrame_12">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_16"/>
-                 </widget>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QFrame" name="gridFrame_9">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_13"/>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <spacer name="verticalSpacer_11">
+                <item row="1" column="2">
+                 <spacer name="verticalSpacer_10">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
                   </property>
@@ -486,6 +517,14 @@
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QFrame" name="gridFrame_8">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_12"/>
+                 </widget>
                 </item>
                 <item row="4" column="1">
                  <spacer name="horizontalSpacer_8">
@@ -503,8 +542,40 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="2" column="1">
-                 <spacer name="horizontalSpacer_7">
+                <item row="3" column="0">
+                 <spacer name="verticalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>10</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QFrame" name="gridFrame_10">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_14"/>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QFrame" name="gridFrame_9">
+                  <property name="styleSheet">
+                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_13"/>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <spacer name="horizontalSpacer_6">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
@@ -519,16 +590,14 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QFrame" name="gridFrame_10">
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                <item row="0" column="2">
+                 <widget class="QFrame" name="databox1_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_14"/>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QFrame" name="gridFrame_13">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -541,10 +610,404 @@
                     <height>16777215</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">background-color: rgb(38, 38, 38);</string>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_7"/>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QFrame{background-color: rgb(38, 38, 38);}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_5" rowstretch="0" columnstretch="0,0,0,0,0,0,0,0,0,0">
+                   <property name="sizeConstraint">
+                    <enum>QLayout::SetDefaultConstraint</enum>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>5</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>10</number>
+                   </property>
+                   <property name="horizontalSpacing">
+                    <number>0</number>
+                   </property>
+                   <property name="verticalSpacing">
+                    <number>5</number>
+                   </property>
+                   <item row="0" column="9">
+                    <layout class="QGridLayout" name="gridLayout_8" rowminimumheight="0,0" columnminimumwidth="0,0,0">
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="1" column="0">
+                      <widget class="QGraphicsView" name="dataline2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border:none;</string>
+                       </property>
+                       <property name="verticalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLabel" name="datalabel2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QLabel{color: rgb(255, 255, 255);
+border:none;}</string>
+                       </property>
+                       <property name="text">
+                        <string>speed</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLabel" name="digitaldata2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);
+border:none;</string>
+                       </property>
+                       <property name="text">
+                        <string>15KMH</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QGraphicsView" name="verticalSpeed">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border:none;</string>
+                       </property>
+                       <property name="verticalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <spacer name="horizontalSpacer_5">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Ignored</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>100</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item row="1" column="2">
+                      <spacer name="horizontalSpacer_9">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Ignored</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>100</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QFrame" name="databox1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QFrame{background-color: rgb(38, 38, 38);}</string>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <layout class="QGridLayout" name="gridLayout_4" rowstretch="0" columnstretch="0,0,0,0,0,0,0,0,0">
+                   <property name="sizeConstraint">
+                    <enum>QLayout::SetDefaultConstraint</enum>
+                   </property>
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>5</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>10</number>
+                   </property>
+                   <property name="horizontalSpacing">
+                    <number>0</number>
+                   </property>
+                   <property name="verticalSpacing">
+                    <number>5</number>
+                   </property>
+                   <item row="0" column="8">
+                    <layout class="QGridLayout" name="gridLayout_7" rowminimumheight="0,0" columnminimumwidth="0,0,0">
+                     <property name="rightMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="1" column="0">
+                      <widget class="QGraphicsView" name="dataline1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border:none;</string>
+                       </property>
+                       <property name="verticalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLabel" name="datalabel">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">QLabel{color: rgb(255, 255, 255);
+border:none;}</string>
+                       </property>
+                       <property name="text">
+                        <string>speed</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QLabel" name="digitaldata1">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);
+border:none;</string>
+                       </property>
+                       <property name="text">
+                        <string>15KMH</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QGraphicsView" name="horizontalSpeed">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="minimumSize">
+                        <size>
+                         <width>25</width>
+                         <height>25</height>
+                        </size>
+                       </property>
+                       <property name="maximumSize">
+                        <size>
+                         <width>50</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">border:none;</string>
+                       </property>
+                       <property name="verticalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                       <property name="horizontalScrollBarPolicy">
+                        <enum>Qt::ScrollBarAlwaysOff</enum>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="2">
+                      <spacer name="horizontalSpacer_3">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Ignored</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>100</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                     <item row="1" column="2">
+                      <spacer name="horizontalSpacer_4">
+                       <property name="orientation">
+                        <enum>Qt::Horizontal</enum>
+                       </property>
+                       <property name="sizeType">
+                        <enum>QSizePolicy::Ignored</enum>
+                       </property>
+                       <property name="sizeHint" stdset="0">
+                        <size>
+                         <width>100</width>
+                         <height>20</height>
+                        </size>
+                       </property>
+                      </spacer>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                </layout>
@@ -577,7 +1040,7 @@ border: 1px solid white;
                 <bool>true</bool>
                </property>
                <property name="gridStyle">
-                <enum>Qt::DashLine</enum>
+                <enum>Qt::SolidLine</enum>
                </property>
                <property name="sortingEnabled">
                 <bool>false</bool>
@@ -724,7 +1187,13 @@ border: 1px solid white;
               </size>
              </property>
              <property name="styleSheet">
-              <string notr="true">border-radius: 0px;
+              <string notr="true">QLabel { 
+                      padding-left: 10px;      
+	color: rgb(255, 255, 255);
+    
+      }
+
+
 </string>
              </property>
              <property name="frameShape">
@@ -748,8 +1217,20 @@ border: 1px solid white;
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">QLabel { 
+                      padding-left: 10px;      
+color: rgb(255, 255, 255);
+    
+      }
+
+</string>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>Mod durumu :</string>
+                </property>
+                <property name="margin">
+                 <number>0</number>
                 </property>
                </widget>
               </item>
@@ -767,8 +1248,11 @@ border: 1px solid white;
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>GPS : </string>
                 </property>
                </widget>
               </item>
@@ -786,8 +1270,11 @@ border: 1px solid white;
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>Uçuş Durumu :</string>
                 </property>
                </widget>
               </item>
@@ -805,8 +1292,11 @@ border: 1px solid white;
                   <height>16777215</height>
                  </size>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>Mevcut Durum :</string>
                 </property>
                </widget>
               </item>
@@ -825,10 +1315,32 @@ border: 1px solid white;
                  </size>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true"/>
+                 <string notr="true">color: rgb(255, 255, 255);</string>
                 </property>
                 <property name="text">
-                 <string>TextLabel</string>
+                 <string>VTOL Durumu : </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color: rgb(255, 255, 255);</string>
+                </property>
+                <property name="text">
+                 <string>Koordinatlar : </string>
                 </property>
                </widget>
               </item>
@@ -1007,7 +1519,7 @@ border: 1px solid white;
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">QFrame{border: 1px solid black;}</string>
+         <string notr="true">QFrame{border-radius: 12px; border: 1px solid #686D76;  background-color:#424242 ;}</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_4">
          <property name="rightMargin">
@@ -1108,8 +1620,8 @@ border: 1px solid white;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
-     <height>18</height>
+     <width>1058</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>
