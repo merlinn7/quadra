@@ -63,14 +63,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <IncludePath>$(ProjectDir)\include;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\lib;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(LocalAppData)\Programs\Python\Python312\include;$(ProjectDir)\include\mavsdk;$(ProjectDir)\include;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LocalAppData)\Programs\Python\Python312\Libs;$(ProjectDir)\lib;C:\Program Files\ArcGIS SDKs\Qt200.5.0\sdk\windows\x64\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Link>
-      <AdditionalDependencies>EsriCommonQt.lib;EsriRuntimeQt.lib;mavsdk.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>EsriCommonQt.lib;EsriRuntimeQt.lib;mavsdk.lib;jsoncpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/FORCE:MULTIPLE %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -101,8 +104,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\CircularProgressBar.cpp" />
+    <ClCompile Include="src\assistant.cpp" />
+    <ClCompile Include="src\math.hpp" />
+    <ClCompile Include="src\mission.cpp" />
+    <ClCompile Include="src\settings.cpp" />
+    <ClCompile Include="src\takeoffInputDialog.cpp" />
+    <ClCompile Include="src\ui_indicators.cpp" />
     <QtRcc Include="src\quadrasoftware.qrc" />
     <QtUic Include="src\connectDialog.ui" />
+    <QtUic Include="src\takeoffInputDialog.ui" />
     <QtUic Include="src\quadrasoftware.ui" />
     <QtMoc Include="src\quadra_ui.h" />
     <ClCompile Include="src\connectDialog.cpp" />
@@ -111,7 +122,12 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="src\gyroscope.hpp" />
+    <QtMoc Include="src\takeoffInputDialog.h" />
     <QtMoc Include="src\connectDialog.h" />
+    <QtMoc Include="include\CircularProgressBar.hpp" />
+    <ClInclude Include="src\assistant.h" />
+    <ClInclude Include="src\mission.h" />
     <ClInclude Include="src\QuadraMavInterface.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
