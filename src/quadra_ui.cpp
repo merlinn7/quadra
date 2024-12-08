@@ -29,6 +29,9 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 
 	std::cout << "[!] Initializing Quadra Control System. Please wait . . ." << std::endl;
 
+	Sleep(2000);
+	system("pip install -r requirements.txt");
+
 	ai_assistant = std::make_unique<PythonWrapper>();
 	ShowWindow(GetConsoleWindow(), 0);
 
