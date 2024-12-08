@@ -8,7 +8,7 @@ Originally developed for the **Teknofest High School UAV Competition**, the proj
 
 ## About Me
 
-I'm an **independent developer** focused on **UAV systems**, **low-level programming**, **reverse engineering**, and **cybersecurity**. I started working on Quadra for the **Teknofest High School UAV Competition**, but it soon evolved into a great passion.
+I'm a student and **independent developer** focused on **UAV systems**, **low-level programming**, **reverse engineering**, and **cybersecurity**. I started working on Quadra for the **Teknofest High School UAV Competition**, but it soon evolved into a great passion.
 
 My goal is to create an **open-source UAV control system** that can become a global standard. I believe in learning by doing, and Quadra is a result of that belief.
 
