@@ -1,0 +1,6 @@
+requests
+transformers
+SpeechRecognition
+scikit-learn
+pyaudio
+torch
