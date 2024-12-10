@@ -68,3 +68,6 @@ By sharing this project, I hope to support innovation, experimentation, and educ
 5. Build the project in **Release | x64** configuration.
 
 ---
+
+## License
+GNU GPLv3
