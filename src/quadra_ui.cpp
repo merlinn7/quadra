@@ -86,7 +86,7 @@ quadrasoftware::quadrasoftware(QWidget* parent)
 	ui.stackedWidget->setStyleSheet("QFrame{border-radius: 12px; border: 1px solid #686D76; background-color:#424242 ;}");
 
 	// map api key
-	const QString esriApiKey = QString("AAPKcd30878169c549719c3a517fa3d217582uWHsyC--Qvd0GlBFmU-rmNXhspCWZPP59m0PMLtN6ItSN8QnvpiTcB8uh0RBp9w");
+	const QString esriApiKey = QString("your-api-key");
 	ArcGISRuntimeEnvironment::setApiKey(esriApiKey);
 
 	// map object 
